@@ -1,7 +1,10 @@
 from sqlalchemy import create_engine, Column, Integer, String, Boolean, ForeignKey,Float
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
+from base import SessionLocal
 from doctors import Doctor
+from fitness import FitnessExpert
+
 
 Base = declarative_base()
 #the code creates a database for patients with the class of Patient. The table details will be used to store and manage patient's data on heart risk failure. 
@@ -22,10 +25,12 @@ class Patient(Base):
     other_illnesses = Column("Other Illnesses", String)
     doctor_id = Column("Doctorid", Integer, ForeignKey('doctors.id')) 
     doctor = relationship("Doctor", backref="patients")
+    fitness_expert_id = Column("Fitness Expert". Integer, ForeignKey('fitness_experts.id'))
+    fitness_expert = relationship("FitnessExpert", backref="patients") 
 class Patient(Base):
   __tablename__ = 'patients'
 
-  def __init__(self, firstname,lastname ,age, gender, doctor: Doctor, diabetes=False, hypertension=False,
+  def __init__(self, firstname,lastname ,age, gender, doctor: Doctor,fitness:FitnessExpert, diabetes=False, hypertension=False,
                smoking=False, weight=None, height=None, family_history=False, appointment_date=None)):
    #the method enables object initialzation for the block
     self.id = None  
@@ -40,6 +45,7 @@ class Patient(Base):
     self.height = height
     self.family_history = family_history
     self.doctor = doctor
+    self.fitness = fitness
     self.appointment_date = appointment_date
     self.risk_score = self.calculate_risk_score()
 
@@ -66,6 +72,7 @@ class Patient(Base):
         return "You are at a MODERATE RISK of heart failure. Consider lifestyle modifications and consult a doctor for personalized advice."
     else:
         return "You are at a LOW RISK of heart failure based on this assessment. However, it's important to maintain healthy habits and schedule regular checkups."
+
 #testing
 #patient1 = Patient("Markson", 80, "Male", diabetes=True, hypertension=True, smoking=True)
 #print(f"Patient 1 Risk Score: {patient1.risk_score}")
@@ -73,5 +80,5 @@ class Patient(Base):
 #print(f"Patient 2 Risk category: {patient1.get_risk_category}")
       
    
-engine = create_engine('sqlite:///algorithim_for_monitoring_heart failure.db') 
-Base.metadata.create_all(engine)
+ 
+
