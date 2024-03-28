@@ -1,9 +1,12 @@
-from sqlalchemy import Column, Integer, String, Boolean, Float, ForeignKey
+from sqlalchemy import create_engine, Column, Integer, String, Boolean, ForeignKey, Float
 from sqlalchemy.orm import relationship
-from base import Base
-from patients import Patient
-
-
+import os
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.ext.declarative import declarative_base
+import uuid
+from lib.models import Patient
+Base = declarative_base
 class Doctor(Base):
   __tablename__ = 'doctors'
 #database for doctors  table in the database
@@ -21,6 +24,7 @@ class Doctor(Base):
   patients = relationship("Patient", backref="doctor")
 
   def __init__(self,id,firstname, lastname, gender,age,address,email, phone_number,salary,working_hours=0):
+   #attributes for the doctors class
     self.id = None  
     self.firstname = firstname 
     self.lastname = lastname

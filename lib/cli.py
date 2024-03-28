@@ -1,10 +1,15 @@
 import typer
-from sqlalchemy.orm import Session  
-from patients import Patient
+from sqlalchemy import create_engine, Column, Integer, String, Boolean, ForeignKey, Float
+from sqlalchemy.orm import relationship
+import os
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.ext.declarative import declarative_base
+import uuid
+from lib.models import Patient  
 from doctors import Doctor
 from fitness import FitnessExpert
-from base import SessionLocal
-from base import Base
+Base= declarative_base 
 def get_user_details(user_type):
     session = SessionLocal() 
     details = {}
@@ -45,11 +50,6 @@ def get_user_details(user_type):
         details["working_hours"] = float(input("Enter fitness expert's working hours: "))
         details["salary"] = details["working_hours"] * 2000 # payment is done on hourly basisis
     return details
-app = typer.Typer()
-import typer
-from sqlalchemy.orm import Session
-from lib import Patient, Doctor, FitnessExpert, SessionLocal
-
 app = typer.Typer()
 
 @app.command()
