@@ -1,6 +1,10 @@
 import typer
 from sqlalchemy.orm import Session  
-from lib import Patient, Doctor, FitnessExpert, SessionLocal
+from patients import Patient
+from doctors import Doctor
+from fitness import FitnessExpert
+from base import SessionLocal
+from base import Base
 def get_user_details(user_type):
     session = SessionLocal() 
     details = {}
@@ -75,4 +79,3 @@ def create_user(user_type: str):
 
 if __name__ == "__main__":
     app()
-

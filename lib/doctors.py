@@ -1,7 +1,8 @@
 from sqlalchemy import Column, Integer, String, Boolean, Float, ForeignKey
 from sqlalchemy.orm import relationship
-from lib.base import Base
-from base import SessionLocal
+from base import Base
+from patients import Patient
+
 
 class Doctor(Base):
   __tablename__ = 'doctors'

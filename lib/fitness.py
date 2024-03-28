@@ -1,6 +1,8 @@
+from requests import session
 from sqlalchemy import Column, Integer, String,Float, ForeignKey
 from sqlalchemy.orm import relationship
 from base import Base
+from base import SessionLocal
 
 class FitnessExpert(Base):
   __tablename__ = 'fitness_experts'
@@ -17,7 +19,7 @@ class FitnessExpert(Base):
   #this is a one to many relationship where a single fitness expert can have many patients
   patients = relationship("Patient", backref="fitness_expert")  
 
-  def __init__(self,id,firstname, lastname, gender,age,address,email, phone_number,salary,working_hours=0):
+  def __init__(self,id,firstname, lastname, gender,age,address,email, phone_number, working_hours=0,salary=None):
     self.id = None  
     self.firstname = firstname 
     self.lastname = lastname
@@ -37,3 +39,12 @@ class FitnessExpert(Base):
   def __str__(self):
    #template for printing doctors details 
        return f"fitness Expert:ID: {self.id}, {self.first_name} {self.last_name} (ID: {self.id}) - Age: {self.age}, Gender: {self.gender},Address:{self.address}, Email: {self.email} , Phone_number: {self.phone_number}, Working Hours: {self.working_hours}, Salary: ${self.salary:.2f}"
+#examples
+fitness_expert1 = FitnessExpert("Kennedy", "Mbungua", 35, "Male", 40, 0.0, "Cardio", "mbugs@email.com", 2000)  
+
+
+print(fitness_expert1.__str__())
+
+
+session.add (fitness_expert1 )
+session.commit(fitness_expert1)

@@ -2,8 +2,10 @@ from sqlalchemy import create_engine, Column, Integer, String, Boolean, ForeignK
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from base import SessionLocal
+from base import Base
 from doctors import Doctor
 from fitness import FitnessExpert
+
 
 
 Base = declarative_base()
