@@ -22,6 +22,9 @@ class Patient(Base):
     hypertension = Column("Hypertension",Boolean)
     heart_disease = Column("Heart Disease", Boolean)
     smoking=Column( "Smoker?", Boolean ) 
+    address = Column("address",Integer)
+    phone_number = Column("Phone Number",String)
+    email = Column("email",String)
     other_illnesses = Column("Other Illnesses", String)
     doctor_id = Column("Doctorid", Integer, ForeignKey('doctors.id')) 
     doctor = relationship("Doctor", backref="patients")
@@ -30,14 +33,18 @@ class Patient(Base):
 class Patient(Base):
   __tablename__ = 'patients'
 
-  def __init__(self, firstname,lastname ,age, gender, doctor: Doctor,fitness:FitnessExpert, diabetes=False, hypertension=False,
-               smoking=False, weight=None, height=None, family_history=False, appointment_date=None)):
-   #the method enables object initialzation for the block
+  def __init__(self, firstname, lastname, age, gender, address="", phone_number="", email="",
+                 diabetes=False, hypertension=False, smoking=False, weight=0.0, height=0.0,
+                 family_history="", doctor=None, fitness=None, appointment_date=None):
+   #the method enable object initialzation for the block
     self.id = None  
     self.firstname = firstname 
     self.lastname = lastname
     self.age = age
     self.gender = gender
+    self.address = address  
+    self.phone_number = phone_number  
+    self.email = email  
     self.diabetes = diabetes
     self.hypertension = hypertension
     self.smoking = smoking
